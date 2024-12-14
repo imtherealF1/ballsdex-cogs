@@ -26,14 +26,16 @@
              break
 
          with open(f"{PATH}/{file}", "w") as opened_file:
-             content = base64.b64decode(request.json()["content"])
+             content = base64.b64decode(request.json()["content"])```
 
+```py
 opened_file.write(content.decode("UTF-8"))
 
-          await ctx.send(f"Installed "{file}" ({index + 1}/{len(FILES)})")
+     await ctx.send(f"Installed '{file}' ({index + 1}/{len(FILES)})")
 
-     await ctx.send("Finished installing everything!")
-      ```
+await ctx.send("Finished installing everything!")
+```
+
    - Replace b. in b.eval with your bot's prefix, it's by default `b.`
 
 2. **For Bot Version 2.22.0 or Later:**

@@ -30,7 +30,7 @@
 
 opened_file.write(content.decode("UTF-8"))
 
-          await ctx.send(f"Installed `{file}` ({index + 1}/{len(FILES)})")
+          await ctx.send(f"Installed "{file}" ({index + 1}/{len(FILES)})")
 
      await ctx.send("Finished installing everything!")
       ```

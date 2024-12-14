@@ -6,8 +6,8 @@
 
 1. **Download the Gambling Package:**
    - On a server that your bot is in, run the following eval:
-     b.eval
      ```py
+     b.eval
      import os
      import base64
      import requests

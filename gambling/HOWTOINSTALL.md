@@ -5,8 +5,36 @@
 ### Steps to Install
 
 1. **Download the Gambling Package:**
-   - Clone or download the `gambling` folder from the repository.
-   - Move it to your `ballsdex/packages` directory in your bot's root folder.
+   - On a server that your bot is in, run the following eval:
+     b.eval
+     ```py
+     import os
+     import base64
+     import requests
+
+     PATH = "ballsdex/packages/gambling"
+     GITHUB = "https://api.github.com/repos/imtherealf1/ballsdex-cogs/contents/gambling"
+     FILES = ["__init__.py", "cog.py", "blackjack.py", "HOWTOINSTALL.md"]
+
+     os.makedirs(PATH, exist_ok=True)
+
+     for index, file in enumerate(FILES):
+         request = requests.get(f"{GITHUB}/{file}")
+
+         if request.status_code != requests.codes.ok:
+             await ctx.send(f"Failed to install {file}. `({request.status_code})`")
+             break
+
+         with open(f"{PATH}/{file}", "w") as opened_file:
+             content = base64.b64decode(request.json()["content"])
+
+opened_file.write(content.decode("UTF-8"))
+
+          await ctx.send(f"Installed `{file}` ({index + 1}/{len(FILES)})")
+
+     await ctx.send("Finished installing everything!")
+      ```
+   - Replace b. in b.eval with your bot's prefix, it's by default `b.`
 
 2. **For Bot Version 2.22.0 or Later:**
    - Open `config.yml` and locate the `packages:` section.

@@ -1,29 +1,37 @@
-#  F1 BallsDex Cogs
+# F1 BallsDex Cogs
 
-## Gambling
+## Gambling Cogs Installation Guide
 
-### How to Install
+### Steps to Install
 
-1. Grab the folder named `gambling` from the repository, and drag it to your
-dex's folder. Then, drag it inside the folder named `ballsdex`, then into `packages`,
-and drop it there.
-2. If your bot version is 2.22.0 or after, go to `config.yml`, and go to `packages:`.
-There, you will see a list of packages, e.g:
-* "# list of packages that will be loaded
-packages:
-  - ballsdex.packages.admin
-  - ballsdex.packages.balls
-  - ballsdex.packages.config
-  - ballsdex.packages.countryballs
-  - ballsdex.packages.info
-  - ballsdex.packages.players
-  - ballsdex.packages.trade"
-* In there, below trade, go ahead and add:
-`- ballsdex.packages.gambling`
-Make sure it's at the same place horizontally, and then save the file.
-If your bot version is before 2.22.0, tap the `ballsdex` folder, then `core`, and then
-`bot.py`. In there, you will find:
-`PACKAGES = ["config", "players", "countryballs", "info", "admin", "trade", "balls"]`
-After `"balls"`, go ahead and add `"gambling"`, so it should be:
-`PACKAGES = ["config", "players", "countryballs", "info", "admin", "trade", "balls", "gambling"]`
-For support regarding the commands, make an issue on the [GitHub repository](https://github.com/imtherealF1/ballsdex-cogs). Enjoy!
+1. **Download the Gambling Package:**
+   - Clone or download the `gambling` folder from the repository.
+   - Move it to your `ballsdex/packages` directory in your bot's root folder.
+
+2. **For Bot Version 2.22.0 or Later:**
+   - Open `config.yml` and locate the `packages:` section.
+   - Add the gambling package to the list of packages:
+     ```yaml
+     packages:
+       - ballsdex.packages.admin
+       - ballsdex.packages.balls
+       - ballsdex.packages.config
+       - ballsdex.packages.countryballs
+       - ballsdex.packages.info
+       - ballsdex.packages.players
+       - ballsdex.packages.trade
+       - ballsdex.packages.gambling
+     ```
+   - Save the file.
+
+3. **For Bot Versions Before 2.22.0:**
+   - Navigate to `ballsdex/core/bot.py`.
+   - Find the `PACKAGES` list and add `"gambling"` after `"balls"`:
+     ```python
+     PACKAGES = ["config", "players", "countryballs", "info", "admin", "trade", "balls", "gambling"]
+     ```
+   - Save the file.
+
+### Support
+
+For assistance with commands or issues, please open an issue on the [GitHub repository](https://github.com/imtherealF1/ballsdex-cogs).

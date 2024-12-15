@@ -327,15 +327,14 @@ class Gambling(commands.Cog):
                 if not self.games[game_id]["bets"]:
                     continue
 
-                bets_summary = "\n".join(
-                    [
-                        f"{bet['player'].mention}: "
-                        f"{bet['countryball'].description(
-                            include_emoji=True, bot=self.bot, is_trade=False
-                        )} "
-                        for bet in self.games[game_id]["bets"]
-                    ]
-                )
+                for bet in self.games[game_id]["bets"]:
+                    c_b = bet['countryball'].description(
+                        include_emoji=True, bot=self.bot, is_trade=False
+                    )
+                    bets_summary = "\n".join([f"{bet['player'].mention}: {c_b}"])
+
+                embed.set_field_at(1, name="Bets", value=bets_summary)
+                await message.edit(embed=embed)
 
                 embed.set_field_at(1, name="Bets", value=bets_summary)
                 await message.edit(embed=embed)

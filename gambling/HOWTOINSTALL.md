@@ -2,10 +2,10 @@
 
 ## Gambling Cogs Installation Guide
 
-### Steps to install
+### Step 1: Download the gambling package
 
-#### Step 1: Download the gambling package
 1. On a guild that your bot is in, run the following eval:
+
    ```py
    b.eval
    import os
@@ -33,14 +33,16 @@
 
    await ctx.send("Finished installing everything!")
      ```
+
 2. Replace b. in b.eval with your bot's prefix, it's by default `b.`
 
-#### Step 2: Add the cog to your bot
+### Step 2: Add the cog to your bot
 
-**For bot version 2.22.0 or later:**
+#### For bot version 2.22.0 or later:
 
 1. Open `config.yml` and locate the `packages:` section.
 2. Add the gambling package to the list of packages:
+
    ```yaml
    packages:
       - ballsdex.packages.admin
@@ -52,16 +54,25 @@
       - ballsdex.packages.trade
       - ballsdex.packages.gambling
    ```
+
 3. Save the file.
 
-**For bot versions before 2.22.0:**
+#### For older bot versions:
 
 1. Navigate to `ballsdex/core/bot.py`.
-2. Find the `PACKAGES` list and add `"gambling"` after `"balls"`:
-   ```py
-   PACKAGES = ["config", "players", "countryballs", "info", "admin", "trade", "balls", "gambling"]
-   ```
-3. Save the file.
+2. Locate the `PACKAGES` list:
+
+    ```py
+    PACKAGES = ["config", "players", "countryballs", "info", "admin", "trade", "balls"]
+    ```
+
+3. Add "gambling" to the list:
+
+    ```py
+    PACKAGES = ["config", "players", "countryballs", "info", "admin", "trade", "balls", "gambling"]
+    ```
+
+4. Save the file.
 
 ### Support
 

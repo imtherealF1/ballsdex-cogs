@@ -1,10 +1,8 @@
 # F1 BallsDex Cogs
 
-## Battle Cogs Installation Guide
+## Battling Cogs Installation Guide
 
-### Steps to install
-
-#### Step 1: Download the Battle Package
+### Step 1: Downloading the battling package
 
 1. Run the following command in a server where your bot is present:
    ```py
@@ -130,6 +128,7 @@ If you aren't sure on the seconds, put a random integer between 01-60.
     ```
 
 - Make sure to use correct indentation.
+
 4. Save the file.
 
 ### Support

@@ -46,6 +46,11 @@ class Gambling(commands.Cog):
                 f"You cannot gamble with a special {settings.collectible_name}.", ephemeral=True
             )
             return
+        if not countryball.countryball.enabled or not countryball.is_tradeable:
+            await interaction.response.send_message(
+                f"You cannot bet this {settings.collectible_name}.", ephemeral=True
+            )
+            return
 
         bj_game = BlackjackGame()
         view = BlackjackGameView(self.bot, player, bj_game, countryball)
@@ -64,6 +69,11 @@ class Gambling(commands.Cog):
         player = await Player.get(discord_id = interaction.user.id)
         bj_game = BlackjackGame()
         view = BlackjackGameView(self.bot, player, bj_game, countryball)
+        if not countryball.countryball.enabled or not countryball.is_tradeable:
+            await interaction.response.send_message(
+                f"You cannot bet this {settings.collectible_name}.", ephemeral=True
+            )
+            return
 
         emojis = ["🍒", "🍊", "🍋", "🍇", "🍉", "🍓"]
         result = [random.choice(emojis) for _ in range(3)]
@@ -190,6 +200,12 @@ class Gambling(commands.Cog):
                     "You must not leave `countryball` empty when starting "
                     "a roulette game with `mode` set to `Alone`.",
                     ephemeral=True,
+                )
+                return
+
+            if not countryball.countryball.enabled or not countryball.is_tradeable:
+                await interaction.response.send_message(
+                    f"You cannot bet this {settings.collectible_name}.", ephemeral=True
                 )
                 return
 
@@ -408,7 +424,21 @@ class Gambling(commands.Cog):
 
         Parameters
         ----------
+        game_id: int
+            The game ID to join.
+        countryball: BallInstanceTransform
+            The countryball to bet.
+        bet_number: int
+            The number to bet on if any.
+        bet_color: str
+            The color to bet on if any (red, black, or green).
         """
+        if not countryball.countryball.enabled or not countryball.is_tradeable:
+            await interaction.response.send_message(
+                f"You cannot bet this {settings.collectible_name}.", ephemeral=True
+            )
+            return
+
         if game_id not in self.games:
             await interaction.response.send_message(
                 "Invalid game ID. Please ensure the game is active.", ephemeral=True

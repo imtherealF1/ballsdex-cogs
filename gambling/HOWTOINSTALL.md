@@ -11,28 +11,42 @@
    import os
    import base64
    import requests
-
+   
    PATH = "ballsdex/packages/gambling"
    GITHUB = "https://api.github.com/repos/imtherealf1/ballsdex-cogs/contents/gambling"
    FILES = ["__init__.py", "cog.py", "blackjack.py", "HOWTOINSTALL.md"]
-
+   
    os.makedirs(PATH, exist_ok=True)
-
+   
    for index, file in enumerate(FILES):
-      request = requests.get(f"{GITHUB}/{file}")
-
-      if request.status_code != requests.codes.ok:
-         await ctx.send(f"Failed to install {file}. `({request.status_code})`")
-         break
-
-      with open(f"{PATH}/{file}", "w") as opened_file:
-         content = base64.b64decode(request.json()["content"])
-         opened_file.write(content.decode("UTF-8"))
-
-      await ctx.send(f"Installed '{file}' ({index + 1}/{len(FILES)})")
-
-   await ctx.send("Finished installing everything!")
+       request = requests.get(f"{GITHUB}/{file}")
+   
+       if request.status_code != requests.codes.ok:
+           await ctx.send(f"Failed to fetch {file}. `({request.status_code})`")
+           break
+   
+       # Decode the remote content
+       remote_content = base64.b64decode(request.json()["content"]).decode("UTF-8")
+       local_file_path = f"{PATH}/{file}"
+   
+       # Check if the local file exists
+       if os.path.exists(local_file_path):
+           with open(local_file_path, "r") as local_file:
+               local_content = local_file.read()
+           # Compare local and remote contents
+           if local_content == remote_content:
+               await ctx.send(f"'{file}' is already up-to-date. ({index + 1}/{len(FILES)})")
+               continue
+   
+       # Write the updated or new file
+       with open(local_file_path, "w") as opened_file:
+           opened_file.write(remote_content)
+   
+       await ctx.send(f"Updated '{file}' ({index + 1}/{len(FILES)})")
+   
+   await ctx.send("Finished installing or updating everything!")
      ```
+- This eval either updates or installs the package, use this for updating too.
 
 2. Replace b. in b.eval with your bot's prefix, it's by default `b.`
 

@@ -6,6 +6,8 @@
 
 1. Updated `HOWTOINSTALL.md` for `battle` and `gambling`, improved installing eval to include updating.
 2. Adding draws in blackjack, and improving in `/blackjack`.
+3. Fixed bug, you now can't gamble with disabled collectibles.
+4. Added description to command arguments in `/roulette add`.
 
 ### Monday, 16th December 2024
 

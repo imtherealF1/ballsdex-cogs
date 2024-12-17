@@ -28,5 +28,5 @@
     - `/roulette start`, to start a game of roulette and the user can choose whether to play alone
     or with other people.
     - `/roulette add`, to add a collectible as a bet when playing alone.
-2. Created `LICENSE.md`, which uses the MIT License.
+2. Created `LICENSE`, which uses the MIT License.
 3. Created `README.md`.

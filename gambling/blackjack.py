@@ -121,15 +121,22 @@ class BlackjackGameView(View):
         color = discord.Colour.green()
         reward = None
         ball = await self.countryball.ball.first()
-        if self.player_value > 21 or (self.ai_value <= 21 and self.ai_value >= self.player_value):
-            result = "You lose!"
+
+        if self.player_value > 21:
+            result = "You bust! You lose!"
             color = discord.Colour.red()
             await self.countryball.delete()
-        elif self.player_value == self.ai_value:
-            result = "It's a draw!"
-            color = discord.Colour.blurple()
-            reward = f"{settings.collectible_name.title()} returned."
-        else:
+        elif self.ai_value > 21:
+            result = "The AI busts! You win!"
+            color = discord.Colour.green()
+            reward = f"You win your bet {settings.collectible_name} and a new instance!"
+            await BallInstance.create(
+                player=self.player,
+                ball=ball,
+                attack_bonus=random.randint(-20, 20),
+                health_bonus=random.randint(-20, 20),
+            )
+        elif self.player_value > self.ai_value:
             result = "You win!"
             color = discord.Colour.green()
             reward = f"You win your bet {settings.collectible_name} and a new instance!"
@@ -139,6 +146,14 @@ class BlackjackGameView(View):
                 attack_bonus=random.randint(-20, 20),
                 health_bonus=random.randint(-20, 20),
             )
+        elif self.player_value < self.ai_value:
+            result = "You lose!"
+            color = discord.Colour.red()
+            await self.countryball.delete()
+        else:
+            result = "It's a draw!"
+            color = discord.Colour.blurple()
+            reward = f"{settings.collectible_name.title()} returned."
 
         await self.end_game(result, color, reward)
 

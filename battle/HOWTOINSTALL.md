@@ -5,6 +5,7 @@
 ### Step 1: Downloading the battling package
 
 1. Run the following command in a server where your bot is present:
+
    ```py
    b.eval
    import os
@@ -13,27 +14,40 @@
 
    PATH = "ballsdex/packages/battle"
    GITHUB = "https://api.github.com/repos/imtherealf1/ballsdex-cogs/contents/battle"
-   FILES = [
-       "__init__.py", "cog.py", "menu.py", "HOWTOINSTALL.md", "display.py", "battle_user.py"
-   ]
+   FILES = ["__init__.py", "cog.py", "display.py", "HOWTOINSTALL.md", "menu.py", "battle_user.py"]
 
    os.makedirs(PATH, exist_ok=True)
 
    for index, file in enumerate(FILES):
-       response = requests.get(f"{GITHUB}/{file}")
+       request = requests.get(f"{GITHUB}/{file}")
 
-       if response.status_code != requests.codes.ok:
-           await ctx.send(f"Failed to install `{file}`. (Error: {response.status_code})")
+       if request.status_code != requests.codes.ok:
+           await ctx.send(f"Failed to fetch {file}. `({request.status_code})`")
            break
 
-       with open(f"{PATH}/{file}", "w") as opened_file:
-           content = base64.b64decode(response.json()["content"])
-           opened_file.write(content.decode("utf-8"))
+       # Decode the remote content
+       remote_content = base64.b64decode(request.json()["content"]).decode("UTF-8")
+       local_file_path = f"{PATH}/{file}"
 
-       await ctx.send(f"Installed `{file}` ({index + 1}/{len(FILES)})")
+       # Check if the local file exists
+       if os.path.exists(local_file_path):
+           with open(local_file_path, "r") as local_file:
+               local_content = local_file.read()
+           # Compare local and remote contents
+           if local_content == remote_content:
+               await ctx.send(f"'{file}' is already up-to-date. ({index + 1}/{len(FILES)})")
+               continue
 
-   await ctx.send("Battle package installation complete!")
-   ```
+       # Write the updated or new file
+       with open(local_file_path, "w") as opened_file:
+           opened_file.write(remote_content)
+
+       await ctx.send(f"Updated '{file}' ({index + 1}/{len(FILES)})")
+
+   await ctx.send("Finished installing or updating everything!")
+     ```
+
+- This eval either updates or installs the package, use this for updating too.
 
 2. Replace b. with your bot's prefix (default is b.).
 

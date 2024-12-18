@@ -59,7 +59,7 @@ async def add_package(package: str):
 
     item = f"  - {package}\n"
 
-    if item in lines:
+    if "packages:\n" not in lines or item in lines:
       return
 
     for i, line in enumerate(lines):

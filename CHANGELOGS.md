@@ -2,6 +2,10 @@
 
 ## Changelogs
 
+### Wednesday, 18th December 2024
+
+1. Updated `HOWTOINSTALL.md`, added `installer.py` for both `gambling` and `battle`.
+
 ### Tuesday, 17th December 2024
 
 1. Updated `HOWTOINSTALL.md` for `battle` and `gambling`, improved installing eval to include updating.

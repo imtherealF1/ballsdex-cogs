@@ -2,7 +2,7 @@
 
 ## Gambling Cog Installation Guide
 
-### Step 1: Download the gambling package
+### Step 1: Download The Gambling Package
 
 Inside of a server your bot is in, run the following eval code, replacing `b.` with your bot's prefix:
 
@@ -26,7 +26,7 @@ This eval will install and update the package using the package installer from t
 ### Step 2: Adding The Package
 
 > [!IMPORTANT]
-> The installer will automatically add the package into your config.yml file if your Ballsdex instance is running on a version equal to or higher than **VERSION 2.22.0**.
+> The installer will automatically add the package into your config.yml file if your Ballsdex instance is running on a version greater than or equal to **VERSION 2.22.0**.
 
 1. Navigate to `ballsdex/core/bot.py`.
 2. Locate the `PACKAGES` list:

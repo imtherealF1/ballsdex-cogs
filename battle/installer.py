@@ -60,7 +60,6 @@ async def add_package(package: str):
     item = f"  - {package}\n"
 
     if item in lines:
-      print("Found")
       return
 
     for i, line in enumerate(lines):

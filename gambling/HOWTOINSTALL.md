@@ -1,77 +1,32 @@
 # F1 BallsDex Cogs
 
-## Gambling Cogs Installation Guide
+## Gambling Cog Installation Guide
 
 ### Step 1: Download the gambling package
 
-1. On a guild that your bot is in, run the following eval:
+Inside of a server your bot is in, run the following eval code, replacing `b.` with your bot's prefix:
 
-   ```py
-   b.eval
-   import os
-   import base64
-   import requests
-   
-   PATH = "ballsdex/packages/gambling"
-   GITHUB = "https://api.github.com/repos/imtherealf1/ballsdex-cogs/contents/gambling"
-   FILES = ["__init__.py", "cog.py", "blackjack.py", "HOWTOINSTALL.md"]
-   
-   os.makedirs(PATH, exist_ok=True)
-   
-   for index, file in enumerate(FILES):
-       request = requests.get(f"{GITHUB}/{file}")
-   
-       if request.status_code != requests.codes.ok:
-           await ctx.send(f"Failed to fetch {file}. `({request.status_code})`")
-           break
-   
-       # Decode the remote content
-       remote_content = base64.b64decode(request.json()["content"]).decode("UTF-8")
-       local_file_path = f"{PATH}/{file}"
-   
-       # Check if the local file exists
-       if os.path.exists(local_file_path):
-           with open(local_file_path, "r") as local_file:
-               local_content = local_file.read()
-           # Compare local and remote contents
-           if local_content == remote_content:
-               await ctx.send(f"'{file}' is already up-to-date. ({index + 1}/{len(FILES)})")
-               continue
-   
-       # Write the updated or new file
-       with open(local_file_path, "w") as opened_file:
-           opened_file.write(remote_content)
-   
-       await ctx.send(f"Updated '{file}' ({index + 1}/{len(FILES)})")
-   
-   await ctx.send("Finished installing or updating everything!")
-     ```
-- This eval either updates or installs the package, use this for updating too.
+```py
+b.eval
+import base64, requests
+r = requests.get(
+    "https://api.github.com/repos/imtherealf1/ballsdex-cogs/contents/gambling/installer.py"
+)
 
-2. Replace b. in b.eval with your bot's prefix, it's by default `b.`
+if r.status_code == requests.codes.ok:
+    content = base64.b64decode(r.json()["content"])
+    await ctx.invoke(bot.get_command("eval"), body=content.decode("UTF-8"))
+else:
+    await ctx.send("Failed to install package.\nPlease submit an issue on the GitHub page.")
+    print(f"ERROR CODE: {r.status_code}")
+```
 
-### Step 2: Add the cog to your bot
+This eval will install and update the package using the package installer from the GitHub page.
 
-#### For bot version 2.22.0 or later:
+### Step 2: Adding The Package
 
-1. Open `config.yml` and locate the `packages:` section.
-2. Add the gambling package to the list of packages:
-
-   ```yaml
-   packages:
-      - ballsdex.packages.admin
-      - ballsdex.packages.balls
-      - ballsdex.packages.config
-      - ballsdex.packages.countryballs
-      - ballsdex.packages.info
-      - ballsdex.packages.players
-      - ballsdex.packages.trade
-      - ballsdex.packages.gambling
-   ```
-
-3. Save the file.
-
-#### For older bot versions:
+> [!IMPORTANT]
+> The installer will automatically add the package into your config.yml file if your Ballsdex instance is running on a version equal to or higher than **VERSION 2.22.0**.
 
 1. Navigate to `ballsdex/core/bot.py`.
 2. Locate the `PACKAGES` list:
@@ -86,7 +41,7 @@
     PACKAGES = ["config", "players", "countryballs", "info", "admin", "trade", "balls", "gambling"]
     ```
 
-4. Save the file.
+4. Save the file and restart your bot.
 
 ### Support
 

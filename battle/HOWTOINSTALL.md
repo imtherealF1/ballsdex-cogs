@@ -1,8 +1,10 @@
 # F1 BallsDex Cogs
 
-## Battling Cogs Installation Guide
+## Battle Cog Installation Guide
 
-### Step 1: Downloading The Battle Package
+The following guide will assist you with installing the battle package. You are required to restart your bot to install this package.
+
+### Step 1: Download The Battle Package
 
 Inside of a server your bot is in, run the following eval code, replacing `b.` with your bot's prefix:
 
@@ -23,10 +25,10 @@ else:
 
 This eval will install and update the package using the package installer from the GitHub page.
 
-### Step 2: Adding The Package
+### Step 2: Add The Package
 
 > [!IMPORTANT]
-> The installer will automatically add the package into your config.yml file if your Ballsdex instance is running on a version greater than or equal to **VERSION 2.22.0**.
+> The installer will automatically add the package into your config.yml file if your Ballsdex instance is running on a version greater than or equal to **VERSION 2.22.0**. If your version is lower than version 2.22.0, follow the guide below.
 
 1. Open `ballsdex/core/bot.py`.
 2. Locate the `PACKAGES` list:
@@ -43,7 +45,7 @@ This eval will install and update the package using the package installer from t
 
 4. Save the file.
 
-### Step 3: Update the Player Model
+### Step 3: Update The Player Model
 
 1. Open `ballsdex/core/models.py`.
 2. Find the player model:
@@ -77,6 +79,10 @@ This eval will install and update the package using the package installer from t
 
 4. Save the file and restart your bot.
 
+### Step 4: Load The Package
+
+Once you have finished all of the steps, restart your bot to load the battle package.
+
 ### Support
 
-For help or issues, open an issue on the [GitHub repository](https://github.com/imtherealf1/ballsdex-cogs).
+For assistance with commands or issues, please open an issue on the [GitHub repository](https://github.com/imtherealf1/ballsdex-cogs).

@@ -19,7 +19,45 @@ ALTER TABLE "player" DROP COLUMN "battles_won";
 ALTER TABLE "player" DROP COLUMN "battles_drawn";
 ALTER TABLE "player" DROP COLUMN "battles_lost";"""
 
+MODEL_CONTENT = """
+    battles_won = fields.IntField(null=False, default=0)
+    battles_drawn = fields.IntField(null=False, default=0)
+    battles_lost = fields.IntField(null=False, default=0)
+"""
+
 os.makedirs(PATH, exist_ok=True)
+
+
+async def add_to_file(file, add, search, stop):
+  """
+  Adds content underneath of a line in a file.
+
+  Parameters
+  ----------
+  file: str
+    The file you want to read and write back to.
+  add: tuple[str, int]
+    The content you want to add and the amount of lines it will be under `search`.
+  search: str
+    The line you want to add the content underneath of.
+  stop: str
+    If the content in `stop` is found within the file, the function will stop.
+  """
+  with open(file, "r") as read_file:
+    lines = read_file.readlines()
+  
+  stripped_lines = [x.lstrip() for x in lines]
+  
+  if stop in stripped_lines:
+    return
+
+  if search[0] in stripped_lines:
+     lines.insert(stripped_lines.index(search[0]) + add[1], add)
+
+  with open(file, "w") as write_file:
+    write_file.writelines(lines)
+
+  await ctx.send(f"Updated {file}")
 
 
 async def run_migration(migration):
@@ -52,7 +90,7 @@ async def add_package(package: str):
     Parameters
     ----------
     package: str
-        The package you want to append to the config.yml file.
+      The package you want to append to the config.yml file.
     """
     with open("config.yml", "r") as file:
       lines = file.readlines()
@@ -105,7 +143,7 @@ for file_name in os.listdir("migrations/models"):
     continue
 
   with open("migrations/models/" + file_name, "r") as file:
-    if file.read() == MIGRATION:
+    if MIGRATION in file.read():
       found_migration = True
       break
 
@@ -114,5 +152,12 @@ await add_package(PATH.replace("/", "."))
 
 if not found_migration:
   await run_migration(MIGRATION)
+
+await add_to_file(
+  "models.py",
+  (MODEL_CONTENT, 5),
+  "friend_policy = fields.IntEnumField(\n",
+  "battles_won = fields.IntField(null=False, default=0)\n",
+)
 
 await ctx.send("Finished installing/updating everything!")

@@ -17,7 +17,7 @@ async def add_package(package: str):
     Parameters
     ----------
     package: str
-        The package you want to append to the config.yml file.
+      The package you want to append to the config.yml file.
     """
     with open("config.yml", "r") as file:
       lines = file.readlines()

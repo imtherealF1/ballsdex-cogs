@@ -25,7 +25,7 @@ else:
 
 This eval will install and update the package using the package installer from the GitHub page.
 
-### Step 2: Add The Package
+### Step 2: Add The Package (OLDER VERSIONS)
 
 > [!IMPORTANT]
 > The installer will automatically add the package into your config.yml file if your Ballsdex instance is running on a version greater than or equal to **VERSION 2.22.0**. If your version is lower than version 2.22.0, follow the guide below.
@@ -45,41 +45,7 @@ This eval will install and update the package using the package installer from t
 
 4. Save the file.
 
-### Step 3: Update The Player Model
-
-1. Open `ballsdex/core/models.py`.
-2. Find the player model:
-
-    ```py
-    class Player(models.Model):
-        discord_id = fields.BigIntField(
-            description="Discord user ID", unique=True, validators=[DiscordSnowflakeValidator()]
-        )
-        donation_policy = fields.IntEnumField(
-            DonationPolicy,
-            description="How you want to handle donations",
-            default=DonationPolicy.ALWAYS_ACCEPT,
-        )
-        privacy_policy = fields.IntEnumField(
-            PrivacyPolicy,
-            description="How you want to handle privacy",
-            default=PrivacyPolicy.DENY,
-        )
-    ```
-
-3. Add the following fields to the model:
-
-    ```py
-    battles_won = fields.IntField(null=False, default=0)
-    battles_drawn = fields.IntField(null=False, default=0)
-    battles_lost = fields.IntField(null=False, default=0)
-    ```
-
-- Make sure to use correct indentation.
-
-4. Save the file and restart your bot.
-
-### Step 4: Load The Package
+### Step 3: Load The Package
 
 Once you have finished all of the steps, restart your bot to load the battle package.
 

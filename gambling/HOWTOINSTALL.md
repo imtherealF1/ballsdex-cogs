@@ -25,7 +25,7 @@ else:
 
 This eval will install and update the package using the package installer from the GitHub page.
 
-### Step 2: Add The Package
+### Step 2: Add The Package (OLDER VERSIONS)
 
 > [!IMPORTANT]
 > The installer will automatically add the package into your config.yml file if your Ballsdex instance is running on a version greater than or equal to **VERSION 2.22.0**. If your version is lower than version 2.22.0, follow the guide below.

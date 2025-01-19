@@ -73,6 +73,14 @@ class BlackjackGameView(View):
         self.ai_value = bj_game.calculate_hand_value(self.ai_hand)
         self.message = None
 
+    async def interaction_check(self, interaction: discord.Interaction) -> bool:
+        if interaction.user.id != self.player.id:
+            await interaction.response.send_message(
+                "You cannot interact with this view!", ephemeral=True
+            )
+            return False
+        return True
+
     async def send_initial_message(self, interaction: discord.Interaction):
         """Send the initial message and store its reference."""
         embed = discord.Embed(

@@ -103,8 +103,7 @@ class BlackjackGameView(View):
         self.message = await interaction.original_response()
 
     @button(label="Hit", style=discord.ButtonStyle.primary)
-    async def hit(self, button: Button, interaction: discord.Interaction):
-        # TODO: fix annoying app fail on button tap
+    async def hit(self, interaction: discord.Interaction, button: Button):
         self.player_hand.append(self.bj_game.deck.pop())
         self.player_value = self.bj_game.calculate_hand_value(self.player_hand)
 
@@ -119,8 +118,7 @@ class BlackjackGameView(View):
         await self.update_embed("Hit! Your move.")
 
     @button(label="Stand", style=discord.ButtonStyle.secondary)
-    async def stand(self, button: Button, interaction: discord.Interaction):
-        # TODO: fix annoying app fail on button tap
+    async def stand(self, interaction: discord.Interaction, button: Button):
         while self.ai_value < 17:
             self.ai_hand.append(self.bj_game.deck.pop())
             self.ai_value = self.bj_game.calculate_hand_value(self.ai_hand)

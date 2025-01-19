@@ -74,7 +74,7 @@ class BlackjackGameView(View):
         self.message = None
 
     async def interaction_check(self, interaction: discord.Interaction) -> bool:
-        if interaction.user.id != self.player.id:
+        if interaction.user.id != self.player.discord_id:
             await interaction.response.send_message(
                 "You cannot interact with this view!", ephemeral=True
             )
